@@ -14,7 +14,9 @@ class MessageController extends Controller
      */
     public function index()
     {
-        //
+        $messages=Message::orderBy('created_at', 'desc')->simplepaginate(3);
+        $user=auth()->user();
+        return view('message.index', compact('messages', 'user'));
     }
 
     /**
@@ -35,13 +37,24 @@ class MessageController extends Controller
      */
     public function store(Request $request)
     {
-        //return dd($request->all());
+        $request->validate(
+            ['title' => 'required|max:255',
+            'content' => 'required|max:1000'],
+            ['title.required' => '件名を入力してください。',
+            'content.required' => '内容を入力してください。']
+        );
 
         $message=new Message();
         $message->title=$request->title;
         $message->content=$request->content;
         $message->user_id=auth()->user()->id;
-        //$message->file=$request->file;
+        if(request('file')){
+            $original = request()->file('file')->getClientOriginalName();
+            //日時追加
+            $name = date('Ymd_His').'_'.$original;
+            request()->file('file')->move('storage/files', $name);
+            $message->file = $name;
+        }
         $message->save();
         return redirect()->route('message.create')->with('message', '投稿を作成しました。');
     }
@@ -54,7 +67,7 @@ class MessageController extends Controller
      */
     public function show(Message $message)
     {
-        //
+        return view('message.show', compact('message'));
     }
 
     /**
@@ -65,7 +78,7 @@ class MessageController extends Controller
      */
     public function edit(Message $message)
     {
-        //
+        return view('message.edit', compact('message'));
     }
 
     /**
@@ -77,7 +90,25 @@ class MessageController extends Controller
      */
     public function update(Request $request, Message $message)
     {
-        //
+        $request->validate(
+            ['title' => 'required|max:255',
+            'content' => 'required|max:1000'],
+            ['title.required' => '件名を入力してください。',
+            'content.required' => '内容を入力してください。']
+        );
+       
+        $message->title=$request->title;
+        $message->content=$request->content;
+        $message->user_id=auth()->user()->id;
+        if(request('file')){
+            $original = request()->file('file')->getClientOriginalName();
+            //日時追加
+            $name = date('Ymd_His').'_'.$original;
+            request()->file('file')->move('storage/files', $name);
+            $message->file = $name;
+        }
+        $message->save();
+        return redirect()->route('message.show', $message)->with('message', '投稿を更新しました。');
     }
 
     /**
@@ -88,6 +119,7 @@ class MessageController extends Controller
      */
     public function destroy(Message $message)
     {
-        //
+        $message->delete();
+        return redirect()->route('message.index')->with('message', '投稿を削除しました。');
     }
 }

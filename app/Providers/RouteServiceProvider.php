@@ -17,7 +17,11 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/dashboard';
+    // デフォルトの設定
+    // public const HOME = '/dashboard';
+
+    //変更した設定
+    public const HOME = '/message';
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.
