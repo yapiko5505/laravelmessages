@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Message;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 
 class MessageController extends Controller
@@ -121,5 +122,19 @@ class MessageController extends Controller
     {
         $message->delete();
         return redirect()->route('message.index')->with('message', '投稿を削除しました。');
+    }
+
+    public function mymessage()
+    {
+        $user=auth()->user()->id;
+        $messages=Message::where('user_id', $user)->orderBy('created_at', 'desc')->simplepaginate(3);
+        return view('message.mymessage', compact('messages'));
+    }
+
+    public function mycomment()
+    {
+        $user=auth()->user()->id;
+        $comments=Comment::where('user_id', $user)->orderBy('created_at', 'desc')->simplepaginate(3);
+        return view('message.mycomment', compact('comments'));
     }
 }

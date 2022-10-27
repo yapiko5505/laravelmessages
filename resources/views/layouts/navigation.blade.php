@@ -18,6 +18,12 @@
                     <x-nav-link :href="route('message.create')" :active="request()->routeIs('message.create')">
                         投稿の新規作成
                     </x-nav-link>
+                    <x-nav-link :href="route('message.mymessage')" :active="request()->routeIs('message.mymessage')">
+                        自分の投稿
+                    </x-nav-link>
+                    <x-nav-link :href="route('message.mycomment')" :active="request()->routeIs('message.mycomment')">
+                        コメントした投稿
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -71,6 +77,12 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('message.create')" :active="request()->routeIs('message.create')">
                 投稿の新規作成
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('message.mymessage')" :active="request()->routeIs('message.mymessage')">
+                自分の投稿
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('message.mycomment')" :active="request()->routeIs('message.mycomment')">
+                コメントした投稿
             </x-responsive-nav-link>
         </div>
 

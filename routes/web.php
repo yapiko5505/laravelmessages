@@ -23,8 +23,10 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::post('post/comment/store', [CommentController::class, 'store'])->name('comment.store');
+Route::post('message/comment/store', [CommentController::class, 'store'])->name('comment.store');
 
+Route::get('message/mymessage', [MessageController::class, 'mymessage'])->name('message.mymessage');
+Route::get('message/mycomment', [MessageController::class, 'mycomment'])->name('message.mycomment');
 Route::resource('message', MessageController::class);
 
 require __DIR__.'/auth.php';
