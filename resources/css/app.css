@@ -11,3 +11,9 @@
 .myclass3{
     @apply bg-red-500;
 }
+.myclass4{
+    @apply bg-green-500;
+}
+.myclass5{
+    @apply bg-pink-500;
+}
