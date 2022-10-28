@@ -13,7 +13,7 @@
                 </p>
                 <div class="flex w-full justify-center md:justify-start pb-24 lg:pb-0 fade-in ">
                     {{-- ボタン設定 --}}
-                    <x-primary-button class="myclass4">お問い合わせ</x-primary-button>
+                    <a href="{{route('contact.create')}}"><x-primary-button class="myclass4">お問い合わせ</x-primary-button></a>
                     <a href="{{route('register')}}"><x-primary-button class="myclass5">ご登録はこちら</x-primary-button></a>
                 </div>
             </div>
