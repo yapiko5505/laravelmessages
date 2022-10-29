@@ -25,6 +25,11 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+//管理者用場面
+Route::middleware(['can:admin'])->group(function(){
+    Route::get('profile/index', [ProfileController::class, 'index'])->name('profile.index');
+});
+
 // お問い合わせ
 Route::get('contact/create', [ContactController::class, 'create'])->name('contact.create');
 Route::post('contact/store', [ContactController::class, 'store'])->name('contact.store');
@@ -35,10 +40,5 @@ Route::get('message/mymessage', [MessageController::class, 'mymessage'])->name('
 Route::get('message/mycomment', [MessageController::class, 'mycomment'])->name('message.mycomment');
 Route::resource('message', MessageController::class);
 
-
-//管理者用場面
-Route::middleware(['can:admin'])->group(function(){
-    Route::get('profile/index', [ProfileController::class, 'index'])->name('profile.index');
-});
 
 require __DIR__.'/auth.php';
