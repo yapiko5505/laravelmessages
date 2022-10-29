@@ -120,6 +120,7 @@ class MessageController extends Controller
      */
     public function destroy(Message $message)
     {
+        $message->comments()->delete();
         $message->delete();
         return redirect()->route('message.index')->with('message', '投稿を削除しました。');
     }
