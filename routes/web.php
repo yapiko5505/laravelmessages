@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,5 +34,11 @@ Route::post('message/comment/store', [CommentController::class, 'store'])->name(
 Route::get('message/mymessage', [MessageController::class, 'mymessage'])->name('message.mymessage');
 Route::get('message/mycomment', [MessageController::class, 'mycomment'])->name('message.mycomment');
 Route::resource('message', MessageController::class);
+
+
+//管理者用場面
+Route::middleware(['can:admin'])->group(function(){
+    Route::get('profile/index', [ProfileController::class, 'index'])->name('profile.index');
+});
 
 require __DIR__.'/auth.php';
