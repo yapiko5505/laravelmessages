@@ -4,7 +4,8 @@
             プロフィール変更
         </h2>
 
-        <x-message :message="session('message')" />
+        <x-input-error class="mb-4" :errors="$errors" />
+        <x-message :message="session('message')" /> 
 
     </x-slot>
 
