@@ -48,6 +48,10 @@
                     </x-slot>
 
                     <x-slot name="content">
+                        <!-- プロフィール変更追加部分 -->
+                        <x-dropdown-link :href="route('profile.edit', auth()->user()->id)">
+                            プロフィール変更
+                        </x-dropdown-link>
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
@@ -103,6 +107,12 @@
                 <div class="font-medium text-sm text-gray-500">@if(Auth::check()){{ Auth::user()->email }}@endif</div>
             </div>
 
+            <!-- プロフィール変更追加部分 -->
+            <div class="mt-3 space-y-1">
+                <x-responsive-nav-link :href="route('profile.edit', auth()->user()->id)">
+                    プロフィール変更
+                </x-responsive-nav-link>
+            </div>
             <div class="mt-3 space-y-1">
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">

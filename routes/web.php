@@ -44,6 +44,10 @@ Route::middleware(['verified'])->group(function(){
     Route::get('mycomment', [MessageController::class, 'mycomment'])->name('message.mycomment');
     Route::resource('message', MessageController::class);
 
+    // プロフィール編集用
+    Route::get('profile/{user}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('profile/{user}', [ProfileController::class, 'update'])->name('profile.update');
+
     //管理者用場面
     Route::middleware(['can:admin'])->group(function(){
     Route::get('profile/index', [ProfileController::class, 'index'])->name('profile.index');
