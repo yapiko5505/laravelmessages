@@ -79,6 +79,7 @@ class MessageController extends Controller
      */
     public function edit(Message $message)
     {
+        $this->authorize('update', $message);
         return view('message.edit', compact('message'));
     }
 
@@ -91,6 +92,7 @@ class MessageController extends Controller
      */
     public function update(Request $request, Message $message)
     {
+        $this->authorize('update', $message);
         $request->validate(
             ['title' => 'required|max:255',
             'content' => 'required|max:1000'],
@@ -120,6 +122,7 @@ class MessageController extends Controller
      */
     public function destroy(Message $message)
     {
+        $this->authorize('delete', $message);
         $message->comments()->delete();
         $message->delete();
         return redirect()->route('message.index')->with('message', '投稿を削除しました。');

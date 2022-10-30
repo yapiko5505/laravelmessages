@@ -19,26 +19,45 @@ use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
     return view('welcome');
-})->name('top');
+});
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+require __DIR__.'/auth.php';
 
-//管理者用場面
-Route::middleware(['can:admin'])->group(function(){
+// Route::get('/dashboard', function () {
+    // return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
+
+// お問い合わせ
+Route::controller(ContactController::class)->group(function(){
+
+    Route::get('contact/create', [ContactController::class, 'create'])->name('contact.create')->middleware('guest');
+    Route::post('contact/store', [ContactController::class, 'store'])->name('contact.store');
+    
+});
+
+
+// ログイン後の通常のユーザー画面
+Route::middleware(['verified'])->group(function(){
+
+    Route::post('message/comment/store', [CommentController::class, 'store'])->name('comment.store');
+    Route::get('mymessage', [MessageController::class, 'mymessage'])->name('message.mymessage');
+    Route::get('mycomment', [MessageController::class, 'mycomment'])->name('message.mycomment');
+    Route::resource('message', MessageController::class);
+
+    //管理者用場面
+    Route::middleware(['can:admin'])->group(function(){
     Route::get('profile/index', [ProfileController::class, 'index'])->name('profile.index');
 });
 
-// お問い合わせ
-Route::get('contact/create', [ContactController::class, 'create'])->name('contact.create');
-Route::post('contact/store', [ContactController::class, 'store'])->name('contact.store');
-
-Route::post('message/comment/store', [CommentController::class, 'store'])->name('comment.store');
-
-Route::get('message/mymessage', [MessageController::class, 'mymessage'])->name('message.mymessage');
-Route::get('message/mycomment', [MessageController::class, 'mycomment'])->name('message.mycomment');
-Route::resource('message', MessageController::class);
+});
 
 
-require __DIR__.'/auth.php';
+
+
+
+
+
+
+
+
+

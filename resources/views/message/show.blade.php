@@ -18,11 +18,15 @@
                             {{ $message->title }}
                     </div>
                     <div class="flex justify-end mt-4">
+                        @can('update', $message)
                         <a href="{{route('message.edit', $message)}}"><x-primary-button class="myclass2">編集</x-primary-button></a>
+                        @endcan
+                        @can('delete', $message)
                         <form method="post" action="{{route('message.destroy', $message)}}">
                             @csrf
                             @method('delete')
                             <x-primary-button class="myclass3" onClick="return confirm('本当に削除しますか？');">削除</x-primary-button>
+                        @endcan
                         </form>
                     </div>
                         </h1><hr class="w-full">
