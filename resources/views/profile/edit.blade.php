@@ -4,7 +4,7 @@
             プロフィール変更
         </h2>
 
-        <x-input-error class="mb-4" :errors="$errors" />
+        <x-input-error class="mb-4" :errors="$errors" /> 
         <x-message :message="session('message')" /> 
 
     </x-slot>
@@ -18,7 +18,6 @@
             <!-- Name -->
             <div>
                 <x-input-label for="name" :value="__('Name')" />
-
                 <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name', $user->name)" required autofocus />
             </div>
 

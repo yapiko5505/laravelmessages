@@ -50,8 +50,11 @@ Route::middleware(['verified'])->group(function(){
 
     //管理者用場面
     Route::middleware(['can:admin'])->group(function(){
-    Route::get('profile/index', [ProfileController::class, 'index'])->name('profile.index');
-});
+        // ユーザー一覧
+        Route::get('profile/index', [ProfileController::class, 'index'])->name('profile.index');
+        Route::delete('profile/{user}', [ProfileController::class, 'delete'])->name('profile.delete');
+
+    });
 
 });
 

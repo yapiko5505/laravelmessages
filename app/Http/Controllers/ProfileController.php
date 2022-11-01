@@ -43,7 +43,7 @@ class ProfileController extends Controller
         // アバターの設定
         if(isset($inputs['avatar'])) {
             if($user->avatar!=='user_default.jpg') {
-                $oldavator='public/avatar/'.$user->avatar;
+                $oldavatar='public/avatar/'.$user->avatar;
                 Storage::delete($oldavatar);
             }
             $name=request()->file('avatar')->getClientOriginalName();
@@ -54,5 +54,14 @@ class ProfileController extends Controller
         }
         $user->update($inputs);
         return back()->with('message', '情報を更新しました。');
+    }
+
+    public function delete(User $user) {
+        if($user->avatar!=='user_default.jpg'){
+            $oldavatar='public/avatar'.$user->avatar;
+            Storage::delete($oldavatar);
+        }
+        $user->delete();
+        return back()->with('message', '情報を削除しました。');
     }
 }
