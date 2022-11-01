@@ -54,6 +54,10 @@ Route::middleware(['verified'])->group(function(){
         Route::get('profile/index', [ProfileController::class, 'index'])->name('profile.index');
         Route::delete('profile/{user}', [ProfileController::class, 'delete'])->name('profile.delete');
 
+        // 追加
+        Route::patch('roles/{user}/attach', [RoleController::class, 'attach'])->name('role.attach');
+        Route::patch('roles/{user}/detach', [RoleController::class, 'detach'])->name('role.detach');
+
     });
 
 });
