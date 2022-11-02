@@ -36,7 +36,7 @@
                             <hr class="w-full">
                             <p class="mt-4 text-gray-600 py-4">{{Str::limit($message->content, 100, '...')}}</p>
                             <div class="text-sm font-semibold flex flex-row-reverse">
-                                <p>{{$message->user->name}} • {{$message->created_at->diffForHumans()}}</p>
+                                <p>{{$message->user->name??'削除されたユーザー'}} • {{$message->created_at->diffForHumans()}}</p>
                             </div>
                             <!-- コメント部分 -->
                             <hr class="w-full mb-2">

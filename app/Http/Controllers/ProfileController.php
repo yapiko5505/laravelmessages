@@ -59,6 +59,7 @@ class ProfileController extends Controller
     }
 
     public function delete(User $user) {
+        $user->roles()->detach();
         if($user->avatar!=='user_default.jpg'){
             $oldavatar='public/avatar'.$user->avatar;
             Storage::delete($oldavatar);

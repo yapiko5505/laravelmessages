@@ -44,7 +44,7 @@
                             </div>
                         @endif
                         <div class="text-sm font-semibold flex flex-row-reverse">
-                            <p> {{ $message->user->name }} • {{$message->created_at->diffForHumans()}}</p>
+                            <p> {{ $message->user->name??'削除されたユーザー' }} • {{$message->created_at->diffForHumans()}}</p>
                         </div>
                     </div>
                     <!-- コメント表示部分 -->
@@ -52,7 +52,7 @@
                     <div class="bg-white w-full  rounded-2xl px-10 py-8 shadow-lg hover:shadow-2xl transition duration-500 mt-8">
                         {{$comment->content}}
                         <div class="text-sm font-semibold flex flex-row-reverse">
-                            <p>{{$comment->user->name}}・{{$comment->created_at->diffForHumans()}}</p>
+                            <p>{{$comment->user->name??'削除されたユーザー'}}・{{$comment->created_at->diffForHumans()}}</p>
                             <!-- アバター追加 -->
                             <span class="rounded-full w-12 h-12">
                                 <img src="{{asset('storage/avatar/'.($comment->user->avatar??'user_default.jpg'))}}">
