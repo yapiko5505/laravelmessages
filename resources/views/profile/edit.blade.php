@@ -4,7 +4,6 @@
             プロフィール変更
         </h2>
 
-        <x-input-error class="mb-4" :errors="$errors" /> 
         <x-message :message="session('message')" /> 
 
     </x-slot>
@@ -18,12 +17,18 @@
                 <!-- Name -->
                 <div>
                     <x-input-label for="name" :value="__('Name')" />
+                        @error('name')
+                            <p class="text-danger" style="color:red">{{$message}}</p>
+                        @enderror
                     <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name', $user->name)" required autofocus />
                 </div>
 
                 <!-- Email Address -->
                 <div class="mt-4">
                     <x-input-label for="email" :value="__('Email')" />
+                    @error('email')
+                        <p class="text-danger" style="color:red">{{$message}}</p>
+                    @enderror
                     <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email', $user->email)" required />
                 </div>
 
@@ -86,9 +91,17 @@
                                 @csrf
                                 @method('patch')
                                 <input type="hidden" name="role" value="{{$role->id}}">
-                                <x-primary-button class="px-2 py-1 text-blue-500 border border-blue-500 font-semibold rounded">
+                                <button class="px-2 py-1 text-blue-500 border border-blue-500 font-semibold rounded
+                                @if(!$user->roles->contains($role))
+                                bg-gray-300
+                                @endif
+                                "
+                                @if(!$user->roles->contains($role))
+                                    disabled
+                                @endif
+                                >
                                     役割付与
-                                </x-primary-button>
+                                </button>
                             </form>
                         </td>
                         <td class="p-3">
@@ -96,9 +109,17 @@
                                 @csrf
                                 @method('patch')
                                 <input type="hidden" name="role" value="{{$role->id}}">
-                                <x-primary-button class="px-2 py-1 text-red-500 border border-red-500 font-semibold rounded">
+                                <button class="px-2 py-1 text-red-500 border border-red-500 font-semibold rounded
+                                @if(!$user->roles->contains($role))
+                                bg-gray-300
+                                @endif
+                                "
+                                @if(!$user->roles->contains($role))
+                                    disabled
+                                @endif
+                                >
                                     役割削除
-                                </x-primary-button>
+                                </button>
                             </form>
                         </td>
                     </tr>
